@@ -362,7 +362,8 @@ h3 {
 }
 
 .hero-visual {
-  position: relative;
+  display: grid;
+  gap: 1rem;
 }
 
 .photo-grid {
@@ -506,17 +507,23 @@ h3 {
 }
 
 .signal-card {
-  position: absolute;
-  left: -1rem;
-  bottom: 1.5rem;
-  z-index: 3;
-  width: min(18rem, 62%);
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 100%;
   padding: 1.2rem 1.25rem;
-  border: 1px solid rgba(53, 36, 24, 0.1);
+  border: 1px solid rgba(255, 247, 238, 0.12);
   border-radius: var(--radius-md);
-  background: rgba(255, 247, 238, 0.92);
-  box-shadow: var(--shadow);
+  background:
+    radial-gradient(circle at top right, rgba(230, 177, 137, 0.2), transparent 34%),
+    linear-gradient(135deg, rgba(42, 30, 24, 0.96), rgba(63, 39, 29, 0.96));
+  box-shadow: var(--shadow-strong);
   backdrop-filter: blur(16px);
+}
+
+.signal-card .eyebrow {
+  margin-bottom: 0.75rem;
+  color: #f1c39b;
 }
 
 .signal-list {
@@ -531,7 +538,7 @@ h3 {
   display: flex;
   align-items: center;
   gap: 0.7rem;
-  color: var(--text-soft);
+  color: rgba(246, 236, 223, 0.88);
 }
 
 .signal-list li::before {
@@ -539,8 +546,8 @@ h3 {
   width: 0.78rem;
   height: 0.78rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, var(--accent), var(--support));
-  box-shadow: 0 0 0 5px rgba(184, 94, 55, 0.12);
+  background: linear-gradient(135deg, #f0b68e, #8aa16d);
+  box-shadow: 0 0 0 5px rgba(240, 182, 142, 0.12);
 }
 
 .stats-grid {
@@ -1059,9 +1066,7 @@ h3 {
   }
 
   .signal-card {
-    position: static;
-    width: 100%;
-    margin-top: 1rem;
+    margin-top: 0;
   }
 
   .photo-subgrid {
