@@ -1,32 +1,35 @@
 # XYZ Tronics Website
 
-Static multi-page marketing site designed to deploy easily on Cloudflare Pages.
+React + Vite marketing site designed to deploy cleanly on Cloudflare Pages.
 
-## Pages
+## Tech Stack
 
-- `/` Home
-- `/services.html`
-- `/industries.html`
-- `/about.html`
-- `/contact.html`
+- React
+- React Router
+- Vite
 
-## Deploy To Cloudflare Pages
+## Local Development
 
-1. Push this repo to GitHub.
-2. In Cloudflare Pages, create a new project from the repo.
-3. Use these settings:
-   - Framework preset: `None`
-   - Build command: leave blank
-   - Build output directory: `/`
-4. Add your custom domain in Cloudflare Pages after deployment.
+1. Install dependencies:
+   - `npm install`
+2. Start the dev server:
+   - `npm run dev`
+3. Build for production:
+   - `npm run build`
+
+## Cloudflare Pages
+
+Use these settings in Cloudflare Pages:
+
+- Framework preset: `Vite`
+- Build command: `npm run build`
+- Build output directory: `dist`
+
+The build emits a Cloudflare-compatible `_redirects` file so React routes like `/services`, `/about`, and `/contact` work after deployment.
 
 ## Replace Before Launch
 
-- Update the placeholder company name if needed: `XYZ Tronics`
+- Update the placeholder company name: `XYZ Tronics`
 - Update phone number: `+1 (519) 555-0147`
 - Update email: `hello@xyztronics.ca`
-- Replace copy with your exact experience and business details
-
-## Contact Form Note
-
-The contact form currently opens the visitor's email app with the message prefilled. If you want, it can later be connected to a Cloudflare Pages Function, email API, or CRM form handler.
+- Replace the placeholder experience text with your actual business details

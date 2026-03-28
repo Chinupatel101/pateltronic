@@ -28,6 +28,11 @@ html {
   scroll-behavior: smooth;
 }
 
+body,
+#root {
+  min-height: 100vh;
+}
+
 body {
   margin: 0;
   font-family: "Sora", sans-serif;
@@ -164,6 +169,14 @@ select {
 .nav-links a.is-active {
   color: var(--text);
   background: rgba(255, 247, 238, 0.82);
+}
+
+.nav-links .button,
+.nav-links .button:hover,
+.nav-links .button.is-active {
+  color: var(--text-inverse);
+  background: linear-gradient(135deg, var(--accent) 0%, #8b401f 100%);
+  box-shadow: 0 16px 34px rgba(146, 67, 34, 0.22);
 }
 
 .menu-toggle {
@@ -559,6 +572,10 @@ h3 {
   padding: 1.7rem;
   background: rgba(247, 238, 227, 0.1);
   color: rgba(246, 236, 223, 0.92);
+}
+
+.page-hero .highlight-card p {
+  color: rgba(246, 236, 223, 0.88);
 }
 
 .service-stack {
