@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#16211D"/>
+      <stop offset=".48" stop-color="#2B3A33"/>
+      <stop offset="1" stop-color="#4B5E4D"/>
+    </linearGradient>
+    <radialGradient id="spot" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(845 178) rotate(129) scale(360 320)">
+      <stop stop-color="#E4C6A1" stop-opacity=".88"/>
+      <stop offset="1" stop-color="#E4C6A1" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency=".82" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 .08"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <rect width="1200" height="900" fill="url(#spot)"/>
+  <rect x="184" y="120" width="832" height="650" rx="42" fill="#1A1F1D"/>
+  <rect x="236" y="175" width="725" height="538" rx="30" fill="#2E3632"/>
+  <g fill="#E7D8C6">
+    <rect x="312" y="254" width="116" height="116" rx="22" fill-opacity=".2"/>
+    <rect x="462" y="254" width="116" height="116" rx="22" fill-opacity=".14"/>
+    <rect x="612" y="254" width="116" height="116" rx="22" fill-opacity=".2"/>
+    <rect x="762" y="254" width="116" height="116" rx="22" fill-opacity=".14"/>
+  </g>
+  <g>
+    <circle cx="371" cy="312" r="41" fill="#DB8455"/>
+    <circle cx="521" cy="312" r="41" fill="#B9C59A"/>
+    <circle cx="671" cy="312" r="41" fill="#DB8455"/>
+    <circle cx="821" cy="312" r="41" fill="#B9C59A"/>
+  </g>
+  <g opacity=".9">
+    <path d="M350 450c80 28 110 68 110 146" stroke="#D59A6F" stroke-width="16" stroke-linecap="round"/>
+    <path d="M430 450c80 28 110 68 110 146" stroke="#6F8A61" stroke-width="16" stroke-linecap="round"/>
+    <path d="M510 450c80 28 110 68 110 146" stroke="#D59A6F" stroke-width="16" stroke-linecap="round"/>
+    <path d="M590 450c80 28 110 68 110 146" stroke="#6F8A61" stroke-width="16" stroke-linecap="round"/>
+    <path d="M670 450c80 28 110 68 110 146" stroke="#D59A6F" stroke-width="16" stroke-linecap="round"/>
+    <path d="M750 450c80 28 110 68 110 146" stroke="#6F8A61" stroke-width="16" stroke-linecap="round"/>
+  </g>
+  <rect x="0" y="760" width="1200" height="140" fill="#151917"/>
+  <rect width="1200" height="900" filter="url(#grain)"/>
+</svg>

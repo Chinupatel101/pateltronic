@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#201712"/>
+      <stop offset=".55" stop-color="#5B3A29"/>
+      <stop offset="1" stop-color="#8B6A4B"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(890 140) rotate(123) scale(340 260)">
+      <stop stop-color="#F1D0B0" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#F1D0B0" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency=".88" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 .07"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <rect width="1200" height="900" fill="url(#glow)"/>
+  <rect x="118" y="184" width="964" height="552" rx="36" fill="#271D18"/>
+  <rect x="170" y="232" width="420" height="428" rx="26" fill="#EFE3D2"/>
+  <path d="M232 340h298M232 430h298M232 520h212" stroke="#C98B64" stroke-width="22" stroke-linecap="round"/>
+  <path d="M640 248l286 232" stroke="#DCA77E" stroke-width="22" stroke-linecap="round"/>
+  <path d="M648 596l164-230" stroke="#E8C4A1" stroke-width="24" stroke-linecap="round"/>
+  <circle cx="834" cy="618" r="96" fill="#D98357"/>
+  <rect x="736" y="522" width="196" height="34" rx="17" fill="#F0DECA" fill-opacity=".22"/>
+  <rect x="736" y="572" width="146" height="22" rx="11" fill="#F0DECA" fill-opacity=".18"/>
+  <rect x="0" y="746" width="1200" height="154" fill="#1A1411"/>
+  <rect width="1200" height="900" filter="url(#grain)"/>
+</svg>

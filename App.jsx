@@ -66,6 +66,122 @@ function usePageEffects(pathname) {
   }, [pathname]);
 }
 
+function SectionHeading({ eyebrow, title, centered = false }) {
+  return (
+    <div className={`section-heading reveal${centered ? " section-heading-centered" : ""}`}>
+      <p className="eyebrow">{eyebrow}</p>
+      <h2>{title}</h2>
+    </div>
+  );
+}
+
+function HeroVisual({ visual }) {
+  return (
+    <div className="hero-visual reveal">
+      <div className="photo-grid">
+        <article className={`photo-card photo-card-feature photo-scene--${visual.featured.scene}`}>
+          <div className="photo-card__frame"></div>
+          <div className="photo-card__content">
+            <span className="photo-chip">{visual.featured.chip}</span>
+            <strong>{visual.featured.title}</strong>
+            <span>{visual.featured.text}</span>
+          </div>
+        </article>
+        <div className="photo-subgrid">
+          {visual.secondary.map((card) => (
+            <article
+              className={`photo-card photo-card-support photo-scene--${card.scene}`}
+              key={`${card.scene}-${card.title}`}
+            >
+              <div className="photo-card__frame"></div>
+              <div className="photo-card__content">
+                <span className="photo-chip">{card.chip}</span>
+                <strong>{card.title}</strong>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+      <article className="signal-card">
+        <p className="eyebrow">{visual.callout.eyebrow}</p>
+        <ul className="signal-list">
+          {visual.callout.items.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </article>
+    </div>
+  );
+}
+
+function CardMedia({ scene, label }) {
+  return (
+    <div className={`card-media photo-scene--${scene}`}>
+      <div className="card-media__frame"></div>
+      <span className="card-media__label">{label}</span>
+    </div>
+  );
+}
+
+function ImpactStrip({ items }) {
+  return (
+    <section className="section section-light impact-section">
+      <div className="container impact-grid">
+        {items.map((item) => (
+          <article className="impact-card reveal" key={item.title}>
+            <span>{item.eyebrow}</span>
+            <strong>{item.title}</strong>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function FeatureSplit({ eyebrow, title, text, points, visual, sectionClassName = "section-light" }) {
+  return (
+    <section className={`section ${sectionClassName}`}>
+      <div className="container visual-split">
+        <div className="reveal">
+          <p className="eyebrow">{eyebrow}</p>
+          <h2>{title}</h2>
+          <p className="section-text section-text-body">{text}</p>
+          <ul className="checklist">
+            {points.map((point) => (
+              <li key={point}>{point}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="reveal">
+          <article className={`photo-card photo-card-tall photo-scene--${visual.scene}`}>
+            <div className="photo-card__frame"></div>
+            <div className="photo-card__content">
+              <span className="photo-chip">{visual.chip}</span>
+              <strong>{visual.title}</strong>
+              <span>{visual.text}</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Timeline({ items }) {
+  return (
+    <div className="timeline-grid">
+      {items.map((item, index) => (
+        <article className="timeline-card reveal" key={item.title}>
+          <span className="timeline-step">{`0${index + 1}`}</span>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </article>
+      ))}
+    </div>
+  );
+}
+
 function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
@@ -152,7 +268,7 @@ function SiteFooter() {
   );
 }
 
-function PageHero({ pageClassName, eyebrow, title, lead, sideText }) {
+function PageHero({ pageClassName, eyebrow, title, lead, visual }) {
   return (
     <section className={`page-hero ${pageClassName}`}>
       <div className="container page-hero-grid">
@@ -161,20 +277,9 @@ function PageHero({ pageClassName, eyebrow, title, lead, sideText }) {
           <h1>{title}</h1>
           <p className="lead">{lead}</p>
         </div>
-        <div className="highlight-card reveal">
-          <p>{sideText}</p>
-        </div>
+        <HeroVisual visual={visual} />
       </div>
     </section>
-  );
-}
-
-function SectionHeading({ eyebrow, title }) {
-  return (
-    <div className="section-heading reveal">
-      <p className="eyebrow">{eyebrow}</p>
-      <h2>{title}</h2>
-    </div>
   );
 }
 
@@ -201,13 +306,9 @@ function HomePage() {
               ))}
             </ul>
           </div>
-          <div className="hero-panel reveal">
-            <div className="status-card">
-              <span className="status-pill">{homeContent.status.pill}</span>
-              <h2>{homeContent.status.title}</h2>
-              <p>{homeContent.status.text}</p>
-            </div>
-            <div className="stats-grid">
+          <div className="hero-panel">
+            <HeroVisual visual={homeContent.visual} />
+            <div className="stats-grid reveal">
               {homeContent.stats.map((item) => (
                 <article className="stat-card" key={item.title}>
                   <strong>{item.title}</strong>
@@ -219,6 +320,8 @@ function HomePage() {
         </div>
       </section>
 
+      <ImpactStrip items={homeContent.impact} />
+
       <section className="section section-light">
         <div className="container">
           <SectionHeading
@@ -228,13 +331,24 @@ function HomePage() {
           <div className="cards-grid cards-grid-three">
             {homeContent.services.map((service) => (
               <article className="info-card reveal" key={service.title}>
-                <h3>{service.title}</h3>
-                <p>{service.text}</p>
+                <CardMedia scene={service.scene} label={service.title} />
+                <div className="card-copy">
+                  <h3>{service.title}</h3>
+                  <p>{service.text}</p>
+                </div>
               </article>
             ))}
           </div>
         </div>
       </section>
+
+      <FeatureSplit
+        eyebrow={homeContent.feature.eyebrow}
+        title={homeContent.feature.title}
+        text={homeContent.feature.text}
+        points={homeContent.feature.points}
+        visual={homeContent.feature.visual}
+      />
 
       <section className="section section-dark">
         <div className="container split-layout">
@@ -291,7 +405,7 @@ function ServicesPage() {
         eyebrow={servicesContent.hero.eyebrow}
         title={servicesContent.hero.title}
         lead={servicesContent.hero.lead}
-        sideText={servicesContent.hero.sideText}
+        visual={servicesContent.hero.visual}
       />
 
       <section className="section section-light">
@@ -304,6 +418,24 @@ function ServicesPage() {
                   <h2>{service.title}</h2>
                   <p>{service.text}</p>
                 </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section section-accent">
+        <div className="container">
+          <SectionHeading
+            eyebrow={servicesContent.modesHeading.eyebrow}
+            title={servicesContent.modesHeading.title}
+          />
+          <div className="impact-grid impact-grid-wide">
+            {servicesContent.modes.map((mode, index) => (
+              <article className="impact-card reveal" key={mode.title}>
+                <span>{`0${index + 1}`}</span>
+                <strong>{mode.title}</strong>
+                <p>{mode.text}</p>
               </article>
             ))}
           </div>
@@ -338,7 +470,7 @@ function IndustriesPage() {
         eyebrow={industriesContent.hero.eyebrow}
         title={industriesContent.hero.title}
         lead={industriesContent.hero.lead}
-        sideText={industriesContent.hero.sideText}
+        visual={industriesContent.hero.visual}
       />
 
       <section className="section section-light">
@@ -350,20 +482,32 @@ function IndustriesPage() {
           <div className="cards-grid cards-grid-three">
             {industriesContent.cards.map((card) => (
               <article className="industry-card reveal" key={card.title}>
-                <h3>{card.title}</h3>
-                <p>{card.text}</p>
+                <CardMedia scene={card.scene} label={card.title} />
+                <div className="card-copy">
+                  <h3>{card.title}</h3>
+                  <p>{card.text}</p>
+                </div>
               </article>
             ))}
           </div>
         </div>
       </section>
 
+      <FeatureSplit
+        eyebrow={industriesContent.showcase.eyebrow}
+        title={industriesContent.showcase.title}
+        text={industriesContent.showcase.text}
+        points={industriesContent.showcase.points}
+        visual={industriesContent.showcase.visual}
+        sectionClassName="section-accent"
+      />
+
       <section className="section section-dark">
         <div className="container split-layout">
           <div className="reveal">
-            <p className="eyebrow">{industriesContent.region.eyebrow}</p>
-            <h2>{industriesContent.region.title}</h2>
-            <p className="section-text">{industriesContent.region.text}</p>
+            <p className="eyebrow">Regional fit</p>
+            <h2>{industriesContent.showcase.title}</h2>
+            <p className="section-text">{industriesContent.showcase.text}</p>
           </div>
           <div className="panel-list reveal">
             {industriesContent.regionRows.map((row) => (
@@ -387,7 +531,7 @@ function AboutPage() {
         eyebrow={aboutContent.hero.eyebrow}
         title={aboutContent.hero.title}
         lead={aboutContent.hero.lead}
-        sideText={aboutContent.hero.sideText}
+        visual={aboutContent.hero.visual}
       />
 
       <section className="section section-light">
@@ -416,6 +560,16 @@ function AboutPage() {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="section section-light">
+        <div className="container">
+          <SectionHeading
+            eyebrow={aboutContent.timelineHeading.eyebrow}
+            title={aboutContent.timelineHeading.title}
+          />
+          <Timeline items={aboutContent.timeline} />
         </div>
       </section>
 
@@ -477,7 +631,7 @@ function ContactForm() {
   }
 
   return (
-    <form className="contact-form reveal" id="contact-form" onSubmit={handleSubmit}>
+    <form className="contact-form reveal" onSubmit={handleSubmit}>
       <div className="form-row">
         <label htmlFor="name">Name</label>
         <input id="name" name="name" type="text" placeholder="Your name" required />
@@ -536,7 +690,7 @@ function ContactPage() {
         eyebrow={contactContent.hero.eyebrow}
         title={contactContent.hero.title}
         lead={contactContent.hero.lead}
-        sideText={contactContent.hero.sideText}
+        visual={contactContent.hero.visual}
       />
 
       <section className="section section-light">
@@ -556,6 +710,24 @@ function ContactPage() {
             </article>
           </div>
           <ContactForm />
+        </div>
+      </section>
+
+      <section className="section section-accent">
+        <div className="container">
+          <SectionHeading
+            eyebrow={contactContent.responseHeading.eyebrow}
+            title={contactContent.responseHeading.title}
+          />
+          <div className="impact-grid impact-grid-wide">
+            {contactContent.response.map((item, index) => (
+              <article className="impact-card reveal" key={item.title}>
+                <span>{`0${index + 1}`}</span>
+                <strong>{item.title}</strong>
+                <p>{item.text}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
     </main>
